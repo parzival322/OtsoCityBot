@@ -97,10 +97,10 @@ async def process_career(message: Message, state: FSMContext, bot: Bot):
             f"Отправил: @{message.from_user.username} (ID: {message.from_user.id})"
         )
         try:
-            bot.send_message(chat_id=1404935980, text=admin_text)
+            await bot.send_message(chat_id=1404935980, text=admin_text)
             await message.answer("Спасибо за заявку! В ближайшее время вам ответят в лс! ❤", reply_markup=kb.return_to_menu)
         except Exception as e:
-            bot.send_message(chat_id=1404935980, text=f"Отпиши Феде, произошла какая-то ошибка при ЗАПОЛНЕНИИ АНКЕТЫ у игрока @{message.from_user.username} (ID: {message.from_user.id})")
+            await bot.send_message(chat_id=1404935980, text=f"Отпиши Феде, произошла какая-то ошибка при ЗАПОЛНЕНИИ АНКЕТЫ у игрока @{message.from_user.username} (ID: {message.from_user.id})")
             await message.answer("Произошла какая-то ошибка, попробуйте заполнить анкету еще раз или ждите пока ошибкку исправят ❤🙏", reply_markup=kb.return_to_menu)
             print(f'Ошибка:{e}')
 
