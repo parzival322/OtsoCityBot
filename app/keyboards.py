@@ -4,7 +4,7 @@ from aiogram.utils.keyboard import ReplyKeyboardBuilder
 import asyncio
  
 
-main_menu = ReplyKeyboardMarkup(
+main = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text='Подать заявку 📄')
