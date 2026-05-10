@@ -18,9 +18,19 @@ main = ReplyKeyboardMarkup(
         resize_keyboard=True
 )
 
+
 return_to_menu = ReplyKeyboardMarkup(keyboard=[
     [
         KeyboardButton(text='Назад в меню')
     ],
 ], resize_keyboard=True)
 
+
+accept_or_return_to_menu = ReplyKeyboardMarkup(keyboard=[
+    [
+        KeyboardButton(text='Подтвердить')
+    ],
+    [
+        KeyboardButton(text='Назад в меню')
+    ],
+], resize_keyboard=True)
