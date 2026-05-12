@@ -1,4 +1,5 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton  
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 #from aiogram.filters.callback_data import CallbackData
 import asyncio
@@ -26,11 +27,16 @@ return_to_menu = ReplyKeyboardMarkup(keyboard=[
 ], resize_keyboard=True)
 
 
-accept_or_return_to_menu = ReplyKeyboardMarkup(keyboard=[
+decline_operation = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text='Отклонить заполнение', callback_data='cancel_fsm')]
+])
+
+
+accept_or_decline_sending_appealToMayor = InlineKeyboardMarkup(inline_keyboard=[
     [
-        KeyboardButton(text='Подтвердить')
+        InlineKeyboardButton(text='Подтвердить', callback_data='accept_sending_appealToMayor')
     ],
     [
-        KeyboardButton(text='Назад в меню')
+        InlineKeyboardButton(text='Отклонить заполнение', callback_data='cancel_fsm')
     ],
-], resize_keyboard=True)
+])
