@@ -132,11 +132,10 @@ async def process_newmessageToMayor(message: Message, state: FSMContext):
 async def endproccesing__messagesToMayor(message: Message, state: FSMContext, bot: Bot):
     messages_list = await state.get_data()
     current_list = messages_list.get("user_messages", [])
-    await state.update_data(user_messages=current_list)
-    data = await state.get_data()
+
     admin_text = (
         f"Новое обращение к Мэру!\n\n"
-        f"❓ Обращение: {data['appeals']}\n"
+        f"❓ Обращение: {', '.join(current_list)}\n"
         f"--- \n"
         f"Отправил: @{message.from_user.username} (ID: {message.from_user.id})"
     )
