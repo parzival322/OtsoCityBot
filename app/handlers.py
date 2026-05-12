@@ -43,12 +43,11 @@ async def cmd_applyToCity(message: Message, state: FSMContext):
 
 @router.message(NewPlayer.name)
 async def process_name(message: Message, state: FSMContext):
+    print(message.text)
     if message.text == 'Назад в меню':
-        print('aboba')
         await state.clear()
         return
     else:
-        print('aboba2')
         await state.update_data(name=message.text)
         await state.set_state(NewPlayer.why)
         await message.answer("Вопрос 2: Почему именно вы?", reply_markup=kb.return_to_menu)
@@ -95,11 +94,13 @@ async def process_career(message: Message, state: FSMContext, bot: Bot):
             f"Отправил: @{message.from_user.username} (ID: {message.from_user.id})"
         )
         try:
-            for admin_id in os.environ.get("ADMIN_IDS"):
+            admin_ids_str = os.environ.get("ADMIN_IDS", "")
+            admin_ids = [aid.strip() for aid in admin_ids_str.split(",") if aid.strip()]
+            for admin_id in admin_ids:
                 await bot.send_message(chat_id=admin_id, text=admin_text)
             await message.answer("Спасибо за заявку! В ближайшее время вам ответят в лс! ❤", reply_markup=kb.return_to_menu)
         except Exception as e:
-            for admin_id in os.environ.get("ADMIN_IDS"):
+            for admin_id in admin_ids:
                 await bot.send_message(chat_id=admin_id, text=f"Отпиши Феде, произошла какая-то ошибка при ЗАПОЛНЕНИИ АНКЕТЫ у игрока @{message.from_user.username} (ID: {message.from_user.id})")
             await message.answer("Произошла какая-то ошибка, попробуйте заполнить анкету еще раз или ждите пока ошибкку исправят ❤🙏", reply_markup=kb.return_to_menu)
             print(f'Ошибка:{e}')
@@ -153,11 +154,13 @@ async def endproccesing__messagesToMayor(message: Message, state: FSMContext, bo
         )
 
         try:
-            for admin_id in os.environ.get("ADMIN_IDS"):
+            admin_ids_str = os.environ.get("ADMIN_IDS", "")
+            admin_ids = [aid.strip() for aid in admin_ids_str.split(",") if aid.strip()]
+            for admin_id in admin_ids:
                 await bot.send_message(chat_id=admin_id, text=admin_text)
             await message.answer("Спасибо за обращение! Мэр ответит вам в короткие сроки! ❤️", reply_markup=kb.return_to_menu)
         except Exception as e:
-            for admin_id in os.environ.get("ADMIN_IDS"):
+            for admin_id in admin_ids:
                 await bot.send_message(chat_id=admin_id, text=f"Отпиши Феде, произошла какая-то ошибка при ЗАПИСИ ОБРАЩЕНИЯ К МЭРУ у игрока @{message.from_user.username} (ID: {message.from_user.id})")
             await message.answer("Произошла какая-то ошибка, попробуйте заполнить анкету еще раз или ждите пока ошибкку исправят ❤🙏", reply_markup=kb.return_to_menu)
             print(f'Ошибка:{e}')
