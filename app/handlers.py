@@ -32,7 +32,7 @@ async def cmd_mainmenu(message: Message):
     await message.answer('Главное меню:', 
                          reply_markup=kb.main)
 
-@router.message(F.data == 'cancel_fsm')
+@router.callback_query(F.data == 'cancel_fsm')
 async def cmd_cancel_fsm(callback: CallbackQuery, state: FSMContext):
     current_state = await state.get_state()
     if current_state is not None:
@@ -128,7 +128,7 @@ async def process_newmessageToMayor(message: Message, state: FSMContext):
     await state.update_data(user_messages=current_list)
     await message.answer(text=f'Ты можешь написать ещё текста или нажми на кнопку "Подтвердить" для завершения ввода \nВсего написано сообщений:{len(current_list)}', reply_markup=kb.accept_or_decline_sending_appealToMayor)
 
-@router.message(F.data == 'accept_sending_appealToMayor')
+@router.callback_query(F.data == 'accept_sending_appealToMayor')
 async def endproccesing__messagesToMayor(message: Message, state: FSMContext, bot: Bot):
     messages_list = await state.get_data()
     current_list = messages_list.get("user_messages", [])
