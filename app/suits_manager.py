@@ -3,8 +3,8 @@ import json
 from PIL import Image
 
 
-DATA_DIR = 'app/data'
-PERMISSIONS_FILE = 'app/data/permissions.json'
+DATA_DIR = '/app/data'
+PERMISSIONS_FILE = '/app/data/permissions.json'
 
 
 #================СПИСОК ФОРМ================
