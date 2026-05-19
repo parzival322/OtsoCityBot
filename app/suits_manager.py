@@ -17,7 +17,7 @@ def get_all_suits():
 
     for file in os.listdir(DATA_DIR):
         filename, ext = file.split('.')
-
+        print(f"Ищем файлы в: {os.path.abspath(DATA_DIR)}")
 
         if ext.lower() == 'png':
             file_path = os.path.join(DATA_DIR, file)
@@ -27,12 +27,13 @@ def get_all_suits():
                 with Image.open(file_path) as img:
                     w, h = img.size
 
-
                     if w == 64 and h == 64:
                         suits[filename] = file_path
 
             except Exception as e:
                 print(f'Ошибка при чтении файлов: {e}')
+
+    return suits
 
 
 #================УСТАНОВКА И ПРОВЕРКА ДОСТУПА================
