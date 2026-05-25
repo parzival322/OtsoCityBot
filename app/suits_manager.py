@@ -62,6 +62,10 @@ def set_access(user_id: int, suit_name: str, allow: bool = True):
     if suit_name in data[user_key] and not allow:
         data[user_key].remove(suit_name)
 
+    file_dir = os.path.dirname(PERMISSIONS_FILE)
+    if file_dir:
+        os.makedirs(file_dir, exist_ok=True)
+
     with open(PERMISSIONS_FILE, mode='w', encoding='utf-8') as f:
         try:
             json.dump(data, f, ensure_ascii=False, indent=4)
