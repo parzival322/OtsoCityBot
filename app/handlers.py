@@ -245,7 +245,7 @@ async def Allow_access_to_Suit(callback: CallbackQuery, callback_data: kb.Suit, 
         await bot.send_message(chat_id=callback_data.user_id, text=f"ЦАРЬ-БАТЮШКА утвердительно ответил на вашу челобитную с просьбой о форме {callback_data.name}")
     else:
         await callback.message.edit_text(
-            text=f"Произошла ошибка при выдаче доступа <a href='tg://user?id={callback_data.user_id}'>Пользователь</a> (ID : {callback_data.user_id}) к форме {callback_data.name}")
+            text=f"Произошла ошибка при выдаче доступа <a href='tg://user?id={callback_data.user_id}'>Пользователь</a> (ID : {callback_data.user_id}) к форме {callback_data.name}", parse_mode="HTML")
 
     await callback.answer()
 
@@ -253,7 +253,7 @@ async def Allow_access_to_Suit(callback: CallbackQuery, callback_data: kb.Suit, 
 @router.callback_query(kb.Suit.filter(F.action=='deny-access'))
 async def Deny_access_to_suit(callback: CallbackQuery, callback_data: kb.Suit, bot: Bot):
     await callback.message.edit_text(
-        text=f"Вы отказали в доступе <a href='tg://user?id={callback_data.user_id}'>Пользователь</a> (ID : {callback_data.user_id}) к форме {callback_data.name}")
+        text=f"Вы отказали в доступе <a href='tg://user?id={callback_data.user_id}'>Пользователь</a> (ID : {callback_data.user_id}) к форме {callback_data.name}", parse_mode="HTML")
 
     await bot.send_message(chat_id=callback_data.user_id,
                            text=f"ЦАРЬ-БАТЮШКА отрицательно ответил на вашу челобитную с просьбой о форме {callback_data.name}. Вы теперь иноагент и враг Лунограда")
