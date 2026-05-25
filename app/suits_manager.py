@@ -46,29 +46,29 @@ def set_access(user_id: int, suit_name: str, allow: bool = True):
         with open(PERMISSIONS_FILE, mode='r', encoding='utf-8') as f:
             try:
                 data = json.load(f)
-                f.close()
             except Exception as e:
                 print(f'Ошибка при чтении доступов: {e}')
                 return ["ERROR", 1]
+    else:
+        data = {}
 
-        user_key = str(user_id)
+    user_key = str(user_id)
 
-        if user_key not in data:
-            data[user_key] = []
+    if user_key not in data:
+        data[user_key] = []
 
-        if suit_name not in data[user_key] and allow:
-            data[user_key].append(suit_name)
-        if suit_name in data[user_key] and not allow:
-            data[user_key].remove(suit_name)
+    if suit_name not in data[user_key] and allow:
+        data[user_key].append(suit_name)
+    if suit_name in data[user_key] and not allow:
+        data[user_key].remove(suit_name)
 
-        with open(PERMISSIONS_FILE, mode='w', encoding='utf-8') as f:
-            try:
-                json.dump(data, f, ensure_ascii=False, indent=4)
-                f.close()
-                return ["OK", 0]
-            except Exception as e:
-                print(f'Ошибка при установке доступов: {e}')
-                return ["ERROR", 2]
+    with open(PERMISSIONS_FILE, mode='w', encoding='utf-8') as f:
+        try:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+            return ["OK", 0]
+        except Exception as e:
+            print(f'Ошибка при установке доступов: {e}')
+            return ["ERROR", 2]
 
 
 def has_access(user_id: int, suit_name: str):
