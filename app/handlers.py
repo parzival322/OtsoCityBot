@@ -3,7 +3,6 @@ from aiogram.filters import CommandStart
 from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
-from aiogram.filters.callback_data import CallbackData
 import os
 
 from dotenv import load_dotenv
@@ -190,14 +189,12 @@ async def selected_Suit(callback: CallbackQuery, callback_data: kb.Suit, state: 
                 InlineKeyboardButton(text='Запросить доступ',
                                      callback_data=kb.Suit(action='ask-access',
                                                            name=callback_data.name,
-                                                           user_username=user.username,
                                                            user_id=user.id).pack())
             ],
             [
                 InlineKeyboardButton(text='Назад',
                                      callback_data=kb.Suit(action='list',
                                                            name=callback_data.name,
-                                                           user_username=user.username,
                                                            user_id=user.id).pack())
             ]
         ])
@@ -220,14 +217,12 @@ async def askSuit(callback: CallbackQuery, callback_data: kb.Suit, bot: Bot):
             InlineKeyboardButton(text='Дать доступ',
                                  callback_data=kb.Suit(action='allow-access',
                                                        name=callback_data.name,
-                                                       user_username=callback_data.user_username,
                                                        user_id=callback_data.user_id).pack())
         ],
         [
             InlineKeyboardButton(text='Отказать',
                                  callback_data=kb.Suit(action='deny-access',
                                                        name=callback_data.name,
-                                                       user_username=callback_data.user_username,
                                                        user_id=callback_data.user_id).pack())
         ]
     ])
@@ -245,12 +240,12 @@ async def Allow_access_to_Suit(callback: CallbackQuery, callback_data: kb.Suit, 
     status_of_allowing_access = sm.set_access(user_id=callback_data.user_id, suit_name=callback_data.name, allow=True)
 
     if status_of_allowing_access == 'OK':
-        await callback.message.edit_text(text=f"Вы успешно выдали доступ @{callback_data.user_username} (ID : {callback_data.user_id}) к форме {callback_data.name}")
+        await callback.message.edit_text(text=f"Вы успешно выдали доступ <a href='tg://user?id={callback_data.user_id}'>Пользователь</a> (ID : {callback_data.user_id}) к форме {callback_data.name}")
 
         await bot.send_message(chat_id=callback_data.user_id, text=f"ЦАРЬ-БАТЮШКА утвердительно ответил на вашу челобитную с просьбой о форме {callback_data.name}")
     else:
         await callback.message.edit_text(
-            text=f"Произошла ошибка при выдаче доступа @{callback_data.user_username} (ID : {callback_data.user_id}) к форме {callback_data.name}")
+            text=f"Произошла ошибка при выдаче доступа <a href='tg://user?id={callback_data.user_id}'>Пользователь</a> (ID : {callback_data.user_id}) к форме {callback_data.name}")
 
     await callback.answer()
 
@@ -258,7 +253,7 @@ async def Allow_access_to_Suit(callback: CallbackQuery, callback_data: kb.Suit, 
 @router.callback_query(kb.Suit.filter(F.action=='deny-access'))
 async def Deny_access_to_suit(callback: CallbackQuery, callback_data: kb.Suit, bot: Bot):
     await callback.message.edit_text(
-        text=f"Вы отказали в доступе @{callback_data.user_username} (ID : {callback_data.user_id}) к форме {callback_data.name}")
+        text=f"Вы отказали в доступе <a href='tg://user?id={callback_data.user_id}'>Пользователь</a> (ID : {callback_data.user_id}) к форме {callback_data.name}")
 
     await bot.send_message(chat_id=callback_data.user_id,
                            text=f"ЦАРЬ-БАТЮШКА отрицательно ответил на вашу челобитную с просьбой о форме {callback_data.name}. Вы теперь иноагент и враг Лунограда")

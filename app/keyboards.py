@@ -5,8 +5,7 @@ from aiogram.filters.callback_data import CallbackData
 import app.suits_manager as sm
  
 class Suit(CallbackData, prefix="suit"):
-    user_id: int
-    user_username: str
+    user_id: int = 0
     name: str
     action: str
 
