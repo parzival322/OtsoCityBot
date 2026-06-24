@@ -32,7 +32,7 @@ class Skin(StatesGroup):
 
 @router.message(CommandStart())
 async def cmd_start(message: Message):
-    await message.answer(text='Привет! Слава Лунограду!! Выбери, что тебе надо путник: ', reply_markup=kb.main)
+    await message.answer(text='Привет! Слава OtsoCity!! Выбери, что тебе надо путник: ', reply_markup=kb.main)
 
 
 @router.message(F.text == 'Назад в меню')
@@ -123,7 +123,7 @@ async def cmd_appealtoMayor(message: Message, state: FSMContext):
     await state.set_state(AppealsToMayor.appeals)
     await state.update_data(user_messages=[])
 
-    await message.answer(text='Привет! Вас приветствует бот секретарь Мэра Лунограда (Он оч занятой человек) \nНапишите ваше обращение к Мэру Лунограда. Мэр постарается вам ответить как можно скорее!')
+    await message.answer(text='Привет! Вас приветствует бот секретарь Мэра OtsoCity \nНапишите ваше обращение к Мэру OtsoCity. Мэр постарается вам ответить как можно скорее!')
     await message.answer(text='Что случилось?', reply_markup=kb.decline_operation)
 
 
@@ -262,7 +262,7 @@ async def Deny_access_to_suit(callback: CallbackQuery, callback_data: kb.Suit, b
         text=f"Вы отказали в доступе <a href='tg://user?id={callback_data.user_id}'>Пользователь</a> (ID : {callback_data.user_id}) к форме {callback_data.name}", parse_mode="HTML")
 
     await bot.send_message(chat_id=callback_data.user_id,
-                           text=f"ЦАРЬ-БАТЮШКА отрицательно ответил на вашу челобитную с просьбой о форме {callback_data.name}. Вы теперь иноагент и враг Лунограда")
+                           text=f"ЦАРЬ-БАТЮШКА отрицательно ответил на вашу челобитную с просьбой о форме {callback_data.name}. Вы теперь иноагент и враг OtsoCity")
 
     await callback.answer()
 
