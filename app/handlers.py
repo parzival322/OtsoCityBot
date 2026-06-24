@@ -145,7 +145,7 @@ async def endproccesing__messagesToMayor(callback: CallbackQuery, state: FSMCont
         f"Новое обращение к Мэру!\n\n"
         f"❓ Обращение: {', '.join(current_list)}\n"
         f"--- \n"
-        f"Отправил: @{callback.message.from_user.username} (ID: {callback.message.from_user.id})"
+        f"Отправил: @{callback.from_user.username} (ID: {callback.from_user.id})"
     )
 
     try:
