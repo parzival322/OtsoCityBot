@@ -19,16 +19,20 @@ def get_all_suits() -> list:
         os.makedirs(DATA_DIR)
 
     suits = []
+    print(f"Ищем файлы в: {os.path.abspath(DATA_DIR)}")
 
     for file in os.listdir(DATA_DIR):
-        filename, ext = file.split('.')
-        print(f"Ищем файлы в: {os.path.abspath(DATA_DIR)}")
+        file_path = os.path.join(DATA_DIR, file)
+
+        if os.path.isdir(file_path):
+            continue
+
+        filename, ext = os.path.splitext(file)
+
+        ext = ext.lstrip('.')
 
         if ext.lower() == 'png':
-            file_path = os.path.join(DATA_DIR, file)
-
             try:
-
                 with Image.open(file_path) as img:
                     w, h = img.size
 
@@ -36,7 +40,7 @@ def get_all_suits() -> list:
                         suits.append(filename)
 
             except Exception as e:
-                print(f'Ошибка при чтении файлов: {e}')
+                print(f'Ошибка при чтении файла {file}: {e}')
 
     return suits
 
