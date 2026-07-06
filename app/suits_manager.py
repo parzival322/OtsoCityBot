@@ -1,6 +1,7 @@
 import os
 import json
 from PIL import Image
+from pathlib import Path
 
 
 DATA_DIR = os.getenv('DATA_DIR', os.path.join(os.path.dirname(__file__),  'data') )
@@ -99,7 +100,11 @@ def blend_skin_with_suit(skin_path: str, suit_path: str, output_path: str) -> st
     try:
         result = Image.alpha_composite(skin, suit)
 
-        result.save(output_path, "PNG")
+        path_obj = Path(output_path)
+        path_obj.parent.mkdir(parents=True, exist_ok=True)
+
+        # Сохраняем, используя путь
+        result.save(path_obj, "PNG")
 
         print(f'Успешное смешивание {skin_path} и {suit_path}')
 
