@@ -28,7 +28,6 @@ def get_all_suits() -> list:
             continue
 
         filename, ext = os.path.splitext(file)
-
         ext = ext.lstrip('.')
 
         if ext.lower() == 'png':
