@@ -22,16 +22,17 @@ def get_all_suits() -> list:
     print(f"Ищем файлы в: {os.path.abspath(DATA_DIR)}")
 
     for file in os.listdir(DATA_DIR):
-        # 1. Сразу собираем полный путь к файлу
         file_path = os.path.join(DATA_DIR, file)
 
-        # 2. ЗАЩИТА: Пропускаем папки (temp, results) и файлы без точек в имени
-        if os.path.isdir(file_path) or '.' not in file:
+        # Защита: пропускаем папки и скрытые файлы вроде .gitignore
+        if os.path.isdir(file_path) or file.startswith('.'):
             continue
 
-        # 3. Теперь безопасно разделяем имя
-        filename, ext = file.split('.')
-        print(f"Ищем файлы в: {os.path.abspath(DATA_DIR)}")
+        # Безопасное деление: берем только расширение (все, что после последней точки)
+        if '.' in file:
+            filename, ext = file.rsplit('.', 1)
+        else:
+            continue
 
         if ext.lower() == 'png':
             try:
