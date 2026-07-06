@@ -22,13 +22,16 @@ def get_all_suits() -> list:
     print(f"Ищем файлы в: {os.path.abspath(DATA_DIR)}")
 
     for file in os.listdir(DATA_DIR):
+        # 1. Сразу собираем полный путь к файлу
         file_path = os.path.join(DATA_DIR, file)
 
-        if os.path.isdir(file_path):
+        # 2. ЗАЩИТА: Пропускаем папки (temp, results) и файлы без точек в имени
+        if os.path.isdir(file_path) or '.' not in file:
             continue
 
-        filename, ext = os.path.splitext(file)
-        ext = ext.lstrip('.')
+        # 3. Теперь безопасно разделяем имя
+        filename, ext = file.split('.')
+        print(f"Ищем файлы в: {os.path.abspath(DATA_DIR)}")
 
         if ext.lower() == 'png':
             try:
