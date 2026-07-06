@@ -29,8 +29,10 @@ def get_all_suits() -> list:
             continue
 
         # Безопасное деление: берем только расширение (все, что после последней точки)
-        if '.' in file:
-            filename, ext = file.rsplit('.', 1)
+        # Вместо filename, ext = file.split('.')
+        parts = file.rsplit('.', 1)
+        if len(parts) == 2:
+            filename, ext = parts
         else:
             continue
 
