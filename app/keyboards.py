@@ -34,7 +34,7 @@ return_to_menu = ReplyKeyboardMarkup(keyboard=[
 
 
 decline_operation = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='Отклонить заполнение', callback_data='cancel_fsm')]
+    [InlineKeyboardButton(text='Отклонить действие', callback_data='cancel_fsm')]
 ])
 
 
